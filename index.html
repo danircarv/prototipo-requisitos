@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network - Universidade de Fortaleza</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+    .header {
+      background-color: #003087;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header .logo {
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+    }
+    .header .logo img {
+      width: 30px;
+      margin-right: 10px;
+    }
+    .header .search-bar {
+      flex-grow: 1;
+      margin: 0 20px;
+    }
+    .header .search-bar input {
+      width: 100%;
+      padding: 5px;
+      border-radius: 20px;
+      border: none;
+    }
+    .header .nav {
+      display: flex;
+      gap: 20px;
+    }
+    .header .nav a {
+      color: white;
+      text-decoration: none;
+    }
+    .header .nav a.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .header .profile {
+      width: 30px;
+      border-radius: 50%;
+    }
+    .welcome-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 60px);
+      flex-direction: column;
+      text-align: center;
+      background-color: #f0f0f0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('https://via.placeholder.com/1200x800');
+      background-size: cover;
+      background-position: center;
+    }
+    .welcome-screen h2 {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 40px;
+    }
+    .welcome-options {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 1000px;
+    }
+    .user-type-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 30px;
+      width: 250px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .user-type-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    }
+    .user-type-card h3 {
+      color: #555;
+      font-size: 20px;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .logo-container img {
+      width: 50px;
+      margin-right: 15px;
+    }
+    .logo-container .logo-text {
+      font-size: 24px;
+      color: rgb(62, 71, 118);
+    }
+    .powered-by {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: #888;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+    }
+    .powered-by span {
+      margin-right: 5px;
+    }
+    .powered-by img {
+      height: 15px;
+    }
+    .post {
+      background-color: white;
+      padding: 0;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    .post .post-header {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background-color: #003087;
+      color: white;
+    }
+    .post .post-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+    .post .post-header .user-info {
+      line-height: 1.2;
+    }
+    .post .post-header .user-info strong {
+      font-size: 16px;
+      display: block;
+    }
+    .post .post-header .user-info span {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .post .content {
+      padding: 15px;
+      margin-bottom: 0;
+    }
+    .post .actions {
+      display: flex;
+      border-top: 1px solid #eee;
+      padding: 10px 15px;
+    }
+    .post .actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #003087;
+      padding: 5px 10px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .post .actions button:hover {
+      background-color: #f0f0f0;
+      border-radius: 4px;
+    }
+    .mentor-post {
+      margin-top: 10px;
+    }
+    .mentor-post textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+    .mentor-post button {
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #003087;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .chat-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background-color: #003087;
+      border-radius: 50%;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .chat-window {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      flex-direction: column;
+    }
+    .chat-window.active {
+      display: flex;
+    }
+    .chat-messages {
+      flex-grow: 1;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    .feed {
+      max-width: 600px;
+      margin: 20px auto;
+      background-color: #f5f5f5;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      border-radius: 8px;
+    }
+    .mentor-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      overflow-y: auto;
+    }
+    .mentor-list-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-bottom: 1px solid #eee;
+    }
+    .mentor-list-item:last-child {
+      border-bottom: none;
+    }
+    .mentor-list-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+    .mentor-list-item .mentor-info {
+      flex-grow: 1;
+    }
+    .mentor-list-item .mentor-info strong {
+      display: block;
+      font-size: 14px;
+    }
+    .mentor-list-item .mentor-info span {
+      font-size: 12px;
+      color: #666;
+    }
+    .mentor-list-item button {
+      padding: 3px 8px;
+      font-size: 12px;
+      background-color: #003087;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .chat-window h4 {
+      margin: 0;
+      padding: 10px 15px;
+      background-color: #f5f5f5;
+      border-bottom: 1px solid #ccc;
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Dedicated Chat Screen Styling */
+    .dedicated-chat-screen {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 60px; /* Below header */
+      left: 0;
+      width: 100%;
+      height: calc(100vh - 60px);
+      background-color: #f5f5f5;
+      z-index: 100; /* Above other content */
+      flex-direction: column;
+    }
+    .chat-header {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background-color: #003087;
+      color: white;
+      font-size: 16px;
+    }
+    .chat-header button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    .chat-header .video-call-btn {
+      margin-left: auto; /* Push video button to the right */
+      margin-right: 0;
+      font-size: 18px; /* Slightly smaller icon */
+    }
+    .chat-messages-area {
+      flex-grow: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: white;
+      cursor: pointer;
+    }
+    .chat-messages-area .message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 70%;
+    }
+    .chat-messages-area .user-message {
+      background-color: #003087;
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 5px;
+    }
+    .chat-messages-area .mentor-message {
+      background-color: #e0e0e0;
+      color: #333;
+      margin-right: auto;
+      border-bottom-left-radius: 5px;
+    }
+    .chat-input-area {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      background-color: #f5f5f5;
+    }
+    .chat-input-area input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      margin-right: 10px;
+    }
+    .chat-input-area button {
+      padding: 10px 15px;
+      background-color: #003087;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    /* Video Call Modal Styling */
+    .video-call-modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+      z-index: 110; /* Above chat screen */
+      justify-content: center;
+      align-items: center;
+    }
+    .video-call-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+    }
+    .video-call-content h5 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    .video-call-content video {
+      width: 100%;
+      max-height: 400px;
+      background-color: #eee;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+    }
+    .video-call-content .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+    }
+    .video-call-content .end-call-btn {
+      padding: 10px 20px;
+      background-color: #dc3545; /* Red color for ending */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <img src="image.png" alt="Logo">
+      Universidade de Fortaleza
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Pesquisar" onfocus="alert('Funcionalidade de pesquisa não implementada.')">
+    </div>
+    <div class="nav">
+      <a href="#" class="active">Network</a>
+      <a href="#" onclick="alert('Navegação para Oportunidades não implementada.')">Oportunidades</a>
+      <a href="#" onclick="alert('Navegação para Eventos não implementada.')">Eventos</a>
+      <a href="#" onclick="alert('Navegação para Empresas não implementada.')">Empresas</a>
+      <a href="#" onclick="alert('Navegação para Serviços não implementada.')">Serviços</a>
+      <a href="#" onclick="alert('Navegação para Agendamentos não implementada.')">Agendamentos</a>
+    </div>
+    <img src="https://i.pravatar.cc/40?u=headerProfile" alt="Profile" class="profile">
+  </div>
+
+  <div class="welcome-screen" id="welcome">
+    <div class="logo-container">
+      <img src="image.png" alt="Logo">
+      <div class="logo-text">Universidade de Fortaleza</div>
+    </div>
+    <h2>Que tipo de usuário é você?</h2>
+    <div class="welcome-options">
+      <div class="user-type-card" onclick="showFeed('mentorado')">
+        <h3>Mentorado</h3>
+      </div>
+      <div class="user-type-card" onclick="showFeed('mentor')">
+        <h3>Mentor</h3>
+      </div>
+    </div>
+    <div class="powered-by">
+      <span>POWERED BY</span>
+      <img src="https://via.placeholder.com/80x15/CCCCCC/FFFFFF?text=Symplicity" alt="Symplicity">
+    </div>
+  </div>
+
+  <div class="feed" id="feed" style="display: none;">
+    <div class="post">
+      <div class="post-header">
+        <img src="https://i.pravatar.cc/40?u=joaoSilva" alt="Profile">
+        <div class="user-info">
+          <strong>João Silva</strong>
+          <span>Desenvolvedor Sênior</span>
+        </div>
+      </div>
+      <div class="content">
+        Olá, compartilho uma dica sobre desenvolvimento web!
+      </div>
+      <div class="actions">
+        <button>Like</button>
+        <button>Comentar</button>
+        <button>Compartilhar</button>
+      </div>
+    </div>
+    <div class="post">
+      <div class="post-header">
+        <img src="https://i.pravatar.cc/40?u=mariaOliveira" alt="Profile">
+        <div class="user-info">
+          <strong>Maria Oliveira</strong>
+          <span>Engenheira de Software</span>
+        </div>
+      </div>
+      <div class="content">
+        Participem do workshop sobre IA na próxima semana! #IA #Workshop
+      </div>
+      <div class="actions">
+        <button onclick="alert('Post curtido!')">Like</button>
+        <button onclick="alert('Comentário adicionado!')">Comentar</button>
+        <button onclick="alert('Post compartilhado!')">Compartilhar</button>
+      </div>
+    </div>
+    <div class="post">
+      <div class="post-header">
+        <img src="https://i.pravatar.cc/40?u=carlosPereira" alt="Profile">
+        <div class="user-info">
+          <strong>Carlos Pereira</strong>
+          <span>Designer UX/UI</span>
+        </div>
+      </div>
+      <div class="content">
+        Dicas de usabilidade para aplicativos móveis. Confira o artigo!
+      </div>
+      <div class="actions">
+        <button onclick="alert('Post curtido!')">Like</button>
+        <button onclick="alert('Comentário adicionado!')">Comentar</button>
+        <button onclick="alert('Post compartilhado!')">Compartilhar</button>
+      </div>
+    </div>
+    <div class="mentor-post" id="mentor-post" style="display: none;">
+      <textarea placeholder="Digite sua publicação..."></textarea>
+      <button onclick="postMessage()">Publicar</button>
+    </div>
+    <div class="chat-icon" onclick="toggleChat()">💬</div>
+    <div class="chat-window" id="chat-window">
+      <h4>Mentores Disponíveis</h4>
+      <ul class="mentor-list" id="mentor-list-container">
+        <!-- Mentor items will be populated here -->
+      </ul>
+    </div>
+  </div>
+
+  <!-- Dedicated Chat Screen (Initially Hidden) -->
+  <div class="dedicated-chat-screen" id="dedicated-chat">
+    <div class="chat-header">
+      <button onclick="goBackToFeed()">&larr;</button>
+      <span id="chat-with-name">Conversa com Mentor</span>
+      <button class="video-call-btn" onclick="startVideoCall()">📹</button>
+    </div>
+    <div class="chat-messages-area" id="chat-messages-area">
+      <!-- Messages will appear here -->
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="dedicated-chat-input" placeholder="Digite sua mensagem...">
+      <button onclick="sendChatMessage()">Enviar</button>
+    </div>
+  </div>
+
+  <!-- Video Call Modal (Initially Hidden) -->
+  <div class="video-call-modal" id="video-call-modal">
+    <div class="video-call-content">
+      <button class="close-btn" onclick="closeVideoCall()">&times;</button>
+      <h5>Chamada de Vídeo</h5>
+      <video id="local-video" autoplay playsinline></video>
+      <button class="end-call-btn" onclick="closeVideoCall()">Encerrar Chamada</button>
+    </div>
+  </div>
+
+  <script>
+    // Store the stream globally to stop it later
+    let localStream = null;
+
+    // Sample Mentor Data
+    const mentors = [
+      { name: 'João Silva', title: 'Desenvolvedor Sênior', img: 'https://i.pravatar.cc/40?u=joaoSilva' },
+      { name: 'Maria Oliveira', title: 'Engenheira de Software', img: 'https://i.pravatar.cc/40?u=mariaOliveira' },
+      { name: 'Carlos Pereira', title: 'Designer UX/UI', img: 'https://i.pravatar.cc/40?u=carlosPereira' },
+      { name: 'Ana Souza', title: 'Gerente de Projetos', img: 'https://i.pravatar.cc/40?u=anaSouza' },
+      { name: 'Mentor Exemplo', title: 'Especialista Convidado', img: 'https://i.pravatar.cc/40?u=mentorExemplo' }
+    ];
+
+    function showFeed(role) {
+      document.getElementById('welcome').style.display = 'none';
+      document.getElementById('feed').style.display = 'block';
+      if (role === 'mentor') {
+        document.getElementById('mentor-post').style.display = 'block';
+      }
+    }
+
+    function toggleChat() {
+      const chatWindow = document.getElementById('chat-window');
+      chatWindow.classList.toggle('active');
+
+      if (chatWindow.classList.contains('active')) {
+        populateMentorList();
+      }
+    }
+
+    function populateMentorList() {
+      const listContainer = document.getElementById('mentor-list-container');
+      listContainer.innerHTML = ''; // Clear previous list
+
+      mentors.forEach(mentor => {
+        const listItem = document.createElement('li');
+        listItem.className = 'mentor-list-item';
+        listItem.innerHTML = `
+          <img src="${mentor.img}" alt="${mentor.name}">
+          <div class="mentor-info">
+            <strong>${mentor.name}</strong>
+            <span>${mentor.title}</span>
+          </div>
+          <button onclick="startChat('${mentor.name}')">Conversar</button>
+        `;
+        listContainer.appendChild(listItem);
+      });
+    }
+
+    function startChat(mentorName) {
+      // Hide mentor list and feed/welcome
+      document.getElementById('chat-window').style.display = 'none';
+      document.getElementById('feed').style.display = 'none';
+      document.getElementById('welcome').style.display = 'none'; // Ensure welcome is hidden too
+
+      // Show dedicated chat screen
+      const chatScreen = document.getElementById('dedicated-chat');
+      chatScreen.style.display = 'flex'; // Use flex for column layout
+
+      // Update chat header name
+      document.getElementById('chat-with-name').textContent = `Conversa com ${mentorName}`;
+
+      // Clear previous messages and add a placeholder
+      const messagesArea = document.getElementById('chat-messages-area');
+      messagesArea.innerHTML = '';
+      const placeholder = document.createElement('div');
+      placeholder.className = 'message mentor-message';
+      placeholder.textContent = `Você iniciou uma conversa com ${mentorName}.`;
+      messagesArea.appendChild(placeholder);
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+
+      // Optionally, clear the input field
+      document.getElementById('dedicated-chat-input').value = '';
+    }
+
+    function goBackToFeed() {
+      closeVideoCall();
+      // Hide dedicated chat screen
+      document.getElementById('dedicated-chat').style.display = 'none';
+
+      // Hide mentor list panel as well (just in case it was somehow visible)
+      document.getElementById('chat-window').style.display = 'none';
+      document.getElementById('chat-window').classList.remove('active');
+
+      // Show the main feed
+      document.getElementById('feed').style.display = 'block';
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('dedicated-chat-input');
+      const messagesArea = document.getElementById('chat-messages-area');
+      const messageText = input.value.trim();
+
+      if (messageText) {
+        // Display user message
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message user-message';
+        messageElement.textContent = messageText;
+        messagesArea.appendChild(messageElement);
+
+        input.value = ''; // Clear input
+
+        // Simulate mentor reply (for prototype)
+        setTimeout(() => {
+          const replyElement = document.createElement('div');
+          replyElement.className = 'message mentor-message';
+          replyElement.textContent = 'Olá! Como posso ajudar?'; // Example reply
+          messagesArea.appendChild(replyElement);
+          messagesArea.scrollTop = messagesArea.scrollHeight;
+        }, 1000);
+
+        // Scroll to bottom
+        messagesArea.scrollTop = messagesArea.scrollHeight;
+      }
+    }
+
+    function postMessage() {
+      const textarea = document.querySelector('.mentor-post textarea');
+      if (textarea.value.trim()) {
+        const post = document.createElement('div');
+        post.className = 'post';
+        post.innerHTML = `
+          <div class="post-header">
+            <img src="https://i.pravatar.cc/40?u=newMentorPost" alt="Profile">
+            <div class="user-info">
+              <strong>Mentor Exemplo</strong>
+              <span>Especialista Convidado</span>
+            </div>
+          </div>
+          <div class="content">${textarea.value}</div>
+          <div class="actions">
+            <button onclick="alert('Post curtido!')">Like</button>
+            <button onclick="alert('Comentário adicionado!')">Comentar</button>
+            <button onclick="alert('Post compartilhado!')">Compartilhar</button>
+          </div>
+        `;
+        const feedElement = document.querySelector('.feed');
+        feedElement.insertBefore(post, feedElement.firstChild);
+        textarea.value = '';
+      }
+    }
+
+    async function startVideoCall() {
+      const modal = document.getElementById('video-call-modal');
+      const videoElement = document.getElementById('local-video');
+      modal.style.display = 'flex'; // Show modal
+
+      try {
+        // Request camera and microphone access
+        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        videoElement.srcObject = localStream; // Display stream in video element
+      } catch (err) {
+        console.error("Error accessing media devices.", err);
+        alert(`Erro ao acessar câmera/microfone: ${err.name} - ${err.message}`);
+        // Optionally hide modal if access fails immediately
+        modal.style.display = 'none';
+      }
+    }
+
+    function closeVideoCall() {
+      const modal = document.getElementById('video-call-modal');
+      const videoElement = document.getElementById('local-video');
+      modal.style.display = 'none'; // Hide modal
+
+      // Stop the media stream tracks
+      if (localStream) {
+        localStream.getTracks().forEach(track => {
+          track.stop();
+        });
+        localStream = null; // Clear the stream variable
+        videoElement.srcObject = null; // Remove stream from video element
+      }
+    }
+  </script>
+</body>
+</html>
