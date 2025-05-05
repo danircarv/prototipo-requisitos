@@ -1,0 +1,70 @@
+Lista de Requisitos Funcionais do Protótipo "Network - Universidade de Fortaleza"
+
+1. Tela de Boas‐Vindas
+   1.1. Exibir, ao carregar a aplicação, a tela de boas-vindas com o logo e o texto "Que tipo de usuário é você?"
+   1.2. Apresentar dois cartões clicáveis: "Mentorado" e "Mentor"
+   1.3. Ao clicar em "Mentorado" ou "Mentor", ocultar a tela de boas-vindas e exibir o feed
+
+2. Cabeçalho (Header)
+   2.1. Exibir logo da universidade, nome "Universidade de Fortaleza" e avatar de perfil
+   2.2. Exibir barra de pesquisa com placeholder "Pesquisar"
+   2.3. Ao focar na barra de pesquisa, exibir alerta informando que a pesquisa não está implementada
+   2.4. Exibir menu de navegação com links: Network, Oportunidades, Eventos, Empresas, Serviços e Agendamentos
+   2.5. Ao clicar em qualquer item do menu, exibir alerta de navegação não implementada
+
+3. Feed de Postagens
+   3.1. Ocultar o container do feed inicialmente (antes da escolha de usuário)
+   3.2. Após seleção de tipo de usuário, exibir container do feed
+   3.3. Exibir posts de exemplo com:
+       • Avatar do usuário
+       • Nome e cargo
+       • Texto do conteúdo
+       • Botões de ação: Like, Comentar, Compartilhar
+   3.4. Ao clicar em Like/Comentar/Compartilhar, executar a ação apropriada (alerta ou placeholder)
+
+4. Funcionalidade de Publicação (apenas para Mentores)
+   4.1. Se o usuário for Mentor, exibir área de postagem (textarea + botão "Publicar")
+   4.2. Validar que o textarea não esteja vazio antes de criar post
+   4.3. Ao publicar, inserir a nova postagem no topo do feed com avatar, nome, cargo e conteúdo
+   4.4. Limpar o conteúdo do textarea após a publicação
+
+5. Chat com Mentores (Janela Rápida)
+   5.1. Exibir ícone de chat fixo no canto inferior direito do feed
+   5.2. Ao clicar no ícone, alternar a exibição da janela de chat rápida (mostrar/esconder)
+   5.3. Carregar dinamicamente a lista de mentores disponíveis ao abrir a janela
+   5.4. Cada item da lista deve exibir avatar, nome, cargo e botão "Conversar"
+   5.5. Ao clicar em "Conversar", ocultar feed e janela de chat rápida, e abrir a tela de chat dedicada
+
+6. Tela de Chat Dedicada
+   6.1. Exibir cabeçalho com:
+       • Botão de voltar (<‐)
+       • Título "Conversa com {Nome do Mentor}"
+       • Botão de chamada de vídeo 📹
+   6.2. Exibir área de mensagens com rolagem infinita para cima e para baixo
+   6.3. Exibir placeholder de mensagem inicial indicando início de conversa
+   6.4. Permitir envio de mensagem via campo de texto e botão "Enviar"
+   6.5. Ao enviar mensagem:
+       • Exibir mensagem do usuário alinhada à direita
+       • Simular resposta do mentor após atraso de 1 segundo (texto fixo)
+       • Auto‐scroll para a mensagem mais recente
+   6.6. Ao clicar no botão de voltar, fechar a tela de chat dedicada e retornar ao feed
+
+7. Chamada de Vídeo
+   7.1. Ao clicar no ícone de vídeo na tela de chat dedicada, abrir modal de chamada de vídeo
+   7.2. Solicitar permissão de câmera e microfone ao usuário
+   7.3. Exibir stream de vídeo local em elemento <video> dentro do modal
+   7.4. Exibir botão "Encerrar Chamada" dentro do modal
+   7.5. Ao encerrar chamada ou ao fechar modal, parar todas as tracks de mídia e ocultar modal
+
+8. Navegação e Estados da UI
+   8.1. Garantir que somente uma das seguintes telas esteja visível por vez: boas‐vindas, feed, chat dedicada
+   8.2. Gerenciar corretamente os estados de visibilidade ao alternar entre funcionalidades
+
+9. Estilização e Responsividade
+   9.1. Garantir layout flexível para diferentes larguras de tela
+   9.2. Aplicar sombras, hover e transições conforme protótipo
+
+10. Feedback de Erros
+   10.1. Tratar erros de permissão de câmera/microfone, exibindo alerta com nome e mensagem de erro
+
+-- FIM DA LISTA DE REQUISITOS FUNCIONAIS -- 

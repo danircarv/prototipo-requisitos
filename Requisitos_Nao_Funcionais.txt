@@ -1,0 +1,79 @@
+Lista de Requisitos Não Funcionais do MentorIA
+
+1. Desempenho
+   1.1. Tempo de resposta da aplicação menor ou igual a 2 segundos para carregamento de páginas principais.
+   1.2. Tempo de resposta para ações de usuário (curtir, comentar, compartilhar ou navegar) menor ou igual a 1 segundo.
+   1.3. O sistema deve suportar, sem degradação perceptível, pelo menos 1.000 usuários simultâneos conectados.
+   1.4. Throughput mínimo de 500 requisições por segundo.
+
+2. Disponibilidade
+   2.1. Disponibilidade mínima de 99,9% (até 8h45 de indisponibilidade projetada por ano).
+   2.2. Implementar redundância de componentes críticos e failover automático.
+   2.3. Janela de manutenção programada limitada a no máximo 4 horas mensais, com aviso prévio de 48 horas.
+
+3. Confiabilidade
+   3.1. Tolerância a falhas de até 1 componente sem perda de serviço.
+   3.2. Mecanismos automáticos de retry em caso de falha temporária de serviços externos.
+   3.3. Taxa de erros (5xx) inferior a 0,5% do total de requisições.
+
+4. Segurança
+   4.1. Autenticação via OAuth2 ou SAML, com tokens JWT.
+   4.2. Autorização baseada em roles (mentor, mentorado, administrador).
+   4.3. Criptografia de dados em trânsito (TLS 1.2+) e em repouso (AES-256).
+   4.4. Proteção contra ataques OWASP Top 10 (XSS, CSRF, SQL Injection, etc.).
+   4.5. Registro (logging) e auditoria de todas as operações sensíveis, com retenção mínima de 1 ano.
+   4.6. Validação de entradas do usuário e sanitização de dados.
+
+5. Usabilidade
+   5.1. Interface intuitiva, com curva de aprendizado menor que 15 minutos para novos usuários.
+   5.2. Padrões de design consistentes com o guia visual da Universidade de Fortaleza.
+   5.3. Acessibilidade conforme WCAG 2.1 nível AA.
+   5.4. Compatibilidade com leitores de tela e navegação por teclado.
+
+6. Manutenibilidade
+   6.1. Arquitetura modular, seguindo princípios SOLID.
+   6.2. Cobertura de testes unitários e de integração maior que 80% de linhas de código.
+   6.3. Documentação de código e APIs atualizada e disponível em repositório (OpenAPI/Swagger).
+   6.4. Estrutura de logs e monitoramento clara para facilitar diagnóstico de erros.
+
+7. Escalabilidade
+   7.1. Suporte a escalabilidade horizontal automática baseada em métricas de carga.
+   7.2. Uso de balanceadores de carga para distribuição de tráfego.
+   7.3. Arquitetura preparada para microsserviços e containerização (Docker/Kubernetes).
+
+8. Portabilidade
+   8.1. Compatibilidade cross-browser: Chrome, Firefox, Edge, Safari (versões LTS).
+   8.2. Responsividade para dispositivos móveis: smartphones e tablets (iOS/Android).
+   8.3. Implantação em ambientes diversos: on-premises, cloud pública (AWS, Azure) e Docker.
+
+9. Compatibilidade e Interoperabilidade
+   9.1. APIs RESTful que seguem padrão OpenAPI 3.0.
+   9.2. Integração com sistemas existentes do Unifor Carreiras via OAuth2 e endpoints definidos.
+   9.3. Capacidade de consumir e gerar dados em formatos JSON e XML.
+
+10. Internacionalização e Localização
+   10.1. Suporte a idiomas português (pt-BR) e inglês (en-US), com fácil adição de novos idiomas.
+   10.2. Formatação de datas, números e moedas conforme locale do usuário.
+
+11. Suporte e Operação (SRE/DevOps)
+   11.1. Monitoramento contínuo via ferramenta (Prometheus, Grafana) com alertas configurados.
+   11.2. Métricas de desempenho, disponibilidade e erros acessíveis em dashboards.
+   11.3. Procedimentos de backup diário e testes de restauração trimestrais.
+
+12. Conformidade Legal e Privacidade
+   12.1. Adequação à Lei Geral de Proteção de Dados (LGPD).
+   12.2. Política de privacidade clara e aceite explícito do usuário.
+
+13. Documentação e Treinamento
+   13.1. Manual do usuário e guia rápido em formato digital.
+   13.2. Vídeos tutoriais e sessão de treinamento para administradores.
+
+14. Sustentabilidade e Eficiência Energética
+   14.1. Otimização de recursos para reduzir consumo de CPU e memória.
+   14.2. Escalonamento de recursos de acordo com o horário de pico para economia.
+
+15. Monitoramento de Qualidade de Serviço (QoS)
+   15.1. SLA definido e monitorado, relatórios mensais de performance.
+   15.2. Feedback de usuários integrado ao sistema de defeitos e melhorias.
+
+-- FIM DOS REQUISITOS NÃO FUNCIONAIS -- 
